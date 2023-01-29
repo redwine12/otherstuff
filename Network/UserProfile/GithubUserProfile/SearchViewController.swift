@@ -17,6 +17,8 @@ class UserProfileViewController: UIViewController {
     // search profile
     // network
     
+    let network = NetworkService(configuration: .default)
+    
     @Published private(set) var user: UserProfile?
     var subscriptions = Set<AnyCancellable>()
     
@@ -94,46 +96,67 @@ extension UserProfileViewController: UISearchBarDelegate {
         guard let keyword = searchBar.text, !keyword.isEmpty else {return}
         "https://api.github.com/users/\(keyword)"
         
-        let base = "https://api.github.com/"
-        let path = "users/\(keyword)"
-        let params: [String: String] = [:]
-        let header: [String: String] = ["content-type" : "application/json"]
-    
-        var urlComponents = URLComponents(string: base + path)!
-        let queryItems = params.map { (key: String, value: String) in
-            return URLQueryItem(name: key, value: value)
-        }
-        urlComponents.queryItems = queryItems
         
-        var request = URLRequest(url: urlComponents.url!)
-        header.forEach { (key: String, value: String) in
-            request.addValue(value, forHTTPHeaderField: key)
-        }
+        // Resource
+//        let base = "https://api.github.com/"
+//        let path = "users/\(keyword)"
+//        let params: [String: String] = [:]
+//        let header: [String: String] = ["content-type" : "application/json"]
+//
+//        var urlComponents = URLComponents(string: base + path)!
+//        let queryItems = params.map { (key: String, value: String) in
+//            return URLQueryItem(name: key, value: value)
+//        }
+//        urlComponents.queryItems = queryItems
+//
+//        var request = URLRequest(url: urlComponents.url!)
+//        header.forEach { (key: String, value: String) in
+//            request.addValue(value, forHTTPHeaderField: key)
+//        }
+        let resource = Resource<UserProfile>(base: "https://api.github.com/",
+                                             path: "users/\(keyword)",
+                                             params: [:],
+                                             header: ["content-type" : "application/json"])
         
-        URLSession.shared
-            .dataTaskPublisher(for: request)
-            .tryMap { result -> Data in
-                guard let response = result.response as? HTTPURLResponse, (200..<300).contains(response.statusCode) else {
-                    let response = result.response as? HTTPURLResponse
-                    let statusCode = response?.statusCode ?? -1
-                    throw NetworkError.responseError(statusCode: statusCode)
-                }
-                return result.data
-            }
-            .decode(type: UserProfile.self, decoder: JSONDecoder())
+        // NetworkService
+        
+        network.load(resource)
             .receive(on: RunLoop.main)
             .sink { completion in
-                print("completion: \(completion)")
-                
                 switch completion {
                 case .failure(let error):
                     self.user = nil
                 case .finished: break
-                }
-                
+                                    }
             } receiveValue: { user in
                 self.user = user
             }.store(in: &subscriptions)
+
+        
+//        URLSession.shared
+//            .dataTaskPublisher(for: request)
+//            .tryMap { result -> Data in
+//                guard let response = result.response as? HTTPURLResponse, (200..<300).contains(response.statusCode) else {
+//                    let response = result.response as? HTTPURLResponse
+//                    let statusCode = response?.statusCode ?? -1
+//                    throw NetworkError.responseError(statusCode: statusCode)
+//                }
+//                return result.data
+//            }
+//            .decode(type: UserProfile.self, decoder: JSONDecoder())
+//            .receive(on: RunLoop.main)
+//            .sink { completion in
+//                print("completion: \(completion)")
+//
+//                switch completion {
+//                case .failure(let error):
+//                    self.user = nil
+//                case .finished: break
+//                }
+//
+//            } receiveValue: { user in
+//                self.user = user
+//            }.store(in: &subscriptions)
 
     }
 }
