@@ -1,8 +1,13 @@
-
+//
+//  GithubUserSearchUITests.swift
+//  GithubUserSearchUITests
+//
+//  Created by joonwon lee on 2022/05/25.
+//
 
 import XCTest
 
-class GithubUserProfileUITests: XCTestCase {
+class GithubUserSearchUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

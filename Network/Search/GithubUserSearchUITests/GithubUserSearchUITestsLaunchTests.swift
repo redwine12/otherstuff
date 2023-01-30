@@ -1,7 +1,13 @@
+//
+//  GithubUserSearchUITestsLaunchTests.swift
+//  GithubUserSearchUITests
+//
+//  Created by joonwon lee on 2022/05/25.
+//
 
 import XCTest
 
-class GithubUserProfileUITestsLaunchTests: XCTestCase {
+class GithubUserSearchUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
