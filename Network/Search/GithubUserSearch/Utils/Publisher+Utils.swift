@@ -1,9 +1,4 @@
-//
-//  Publisher+Utils.swift
-//  GithubUserSearch
-//
-//  Created by joonwon lee on 2022/05/28.
-//
+
 
 import Foundation
 import Combine
