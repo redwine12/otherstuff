@@ -1,5 +1,4 @@
 
-
 import UIKit
 import Combine
 
@@ -36,7 +35,7 @@ class SearchViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        // presentation , data, layer
+  
         datasource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ResultCell", for: indexPath) as? ResultCell else {
                 return nil
@@ -76,7 +75,7 @@ class SearchViewController: UIViewController {
     // collectionView 구성
     // bind() 검색된 사용자를 collectionView 업데이트 하는것
     // // 데이터를 view로 뿌려주는것
-    // // 사용자 인터렉션 대응 = searchControl에서 텍스트 - 네트워크 요청
+    // // 사용자 인터렉션 대응
     
 }
 
