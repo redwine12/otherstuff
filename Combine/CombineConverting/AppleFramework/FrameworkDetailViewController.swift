@@ -1,9 +1,3 @@
-//
-//  FrameworkDetailViewController.swift
-//  AppleFramework
-//
-//  Created by joonwon lee on 2022/05/01.
-//
 
 import UIKit
 import SafariServices

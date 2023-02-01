@@ -1,9 +1,4 @@
-//
-//  AppleFrameworkUITestsLaunchTests.swift
-//  AppleFrameworkUITests
-//
-//  Created by joonwon lee on 2022/04/22.
-//
+
 
 import XCTest
 
