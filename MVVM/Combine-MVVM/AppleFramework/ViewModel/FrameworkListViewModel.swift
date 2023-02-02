@@ -23,6 +23,6 @@ final class FrameworkListViewModel {
     let didSelect = PassthroughSubject<AppleFramework, Never>()
     
     func didSelect(at indexPath: IndexPath) {
-        selectedItem.send(items)
+        selectedItem.send(item)
     }
 }

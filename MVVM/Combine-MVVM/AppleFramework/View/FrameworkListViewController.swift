@@ -58,7 +58,8 @@ class FrameworkListViewController: UIViewController {
                 // 디테일 뷰 띄우기
                 let sb = UIStoryboard(name: "Detail", bundle: nil)
                 let vc = sb.instantiateViewController(withIdentifier: "FrameworkDetailViewController") as! FrameworkDetailViewController
-                vc.framework.send(framework)
+                // viewModel 세팅
+                vc.viewModel = FrameworkDetailViewModel(framework: framework)
                 self.present(vc, animated: true)
             }.store(in: &subscriptions)
     }
